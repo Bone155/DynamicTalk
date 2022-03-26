@@ -25,15 +25,17 @@ public class NPCsTalk : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
+        if (doneTalking)
+        {
+            return;
+        }
+
         direction = (transform.position - target.position) * -1;
 
-        if (Vector3.Distance(transform.position, target.position) <= distance && !doneTalking)
+        if (Vector3.Distance(transform.position, target.position) <= distance)
         {
             trigger.TriggerDialogue();
-            if (!DialogueManager.isActive)
-            {
-                doneTalking = true;
-            }
+            doneTalking = true;
         }
 
         transform.Translate(direction * Time.deltaTime);
