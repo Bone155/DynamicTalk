@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Lines[] lines;
-    public Character[] characters;
+    public List<Line> lines;
+    public List<Character> characters;
     [Tooltip("Seconds to read each line")]
     public float seconds;
     [HideInInspector] public DialogueManager manager;
@@ -23,11 +23,17 @@ public class DialogueTrigger : MonoBehaviour
 }
 
 [System.Serializable]
-public class Lines
+public class Line
 {
     public int characterID;
     [TextArea(3, 10)]
     public string line;
+
+    public Line() { }
+    public Line(string line)
+    {
+        this.line = line;
+    }
 }
 
 [System.Serializable]

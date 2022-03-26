@@ -5,10 +5,11 @@ using UnityEngine;
 public class NPCsTalk : MonoBehaviour
 {
     public DialogueTrigger trigger;
-    public GameObject[] npcs;
+    public Transform target;
     public float distance = 3f;
 
-    bool canTalk = true;
+    Vector3 direction;
+    bool doneTalking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,20 +20,23 @@ public class NPCsTalk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(npcs[0].transform.position, npcs[1].transform.position) <= distance && canTalk)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
+
+        direction = (transform.position - target.position) * -1;
+
+        if (Vector3.Distance(transform.position, target.position) <= distance && !doneTalking)
         {
             trigger.TriggerDialogue();
-            GameManager.instance.dialogueBox.gameObject.SetActive(true);
             if (!DialogueManager.isActive)
             {
-                canTalk = false;
-                GameManager.instance.dialogueBox.gameObject.SetActive(false);
+                doneTalking = true;
             }
         }
-        else
-        {
-            canTalk = true;
-        }
+
+        transform.Translate(direction * Time.deltaTime);
     }
 
 }

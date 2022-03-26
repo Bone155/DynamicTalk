@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public DialogueManager dialogueManager;
     public GameObject dialogueBox;
 
     // Start is called before the first frame update
